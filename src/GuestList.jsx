@@ -5,18 +5,26 @@ export default function GuestList() {
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState([]);
 
-  // Function to add a guest to the guest list
+  // Function to add a guest to the list
   function addGuest() {
     if (firstName && lastName) {
       const newGuest = {
         id: guests.length + 1, // ID is based on the current length of the array
         name: `${firstName} ${lastName}`,
       };
+
       // console.log(`Guest ID: ${newGuest.id}`); // Check the guest id
+
       setGuests([...guests, newGuest]); // Add the new guest to the list
       setFirstName(''); // Clear first name input
       setLastName(''); // Clear last name input
     }
+  }
+
+  // Function to remove a guest from the list
+  function removeGuest(id) {
+    const updatedGuestList = guests.filter((guest) => guest.id !== id);
+    setGuests(updatedGuestList);
   }
 
   return (
@@ -51,7 +59,15 @@ export default function GuestList() {
       {/* Display the list of guests */}
       <ul>
         {guests.map((guest) => (
-          <li key={`user-${guest.id}`}>{guest.name}</li>
+          <li key={`guest-${guest.id}`}>
+            {guest.name}
+            <button
+              className="remove-button"
+              onClick={() => removeGuest(guest.id)}
+            >
+              Remove
+            </button>
+          </li>
         ))}
       </ul>
     </div>
