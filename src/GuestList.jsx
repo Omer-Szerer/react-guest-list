@@ -12,9 +12,8 @@ export default function GuestList() {
       const newGuest = {
         id: guests.length + 1, // ID is based on the current length of the array
         name: `${firstName} ${lastName}`,
+        attending: false, // Default value for attending status
       };
-
-      // console.log(`Guest ID: ${newGuest.id}`); // Check the guest id
 
       setGuests([...guests, newGuest]); // Add the new guest to the list
       setFirstName(''); // Clear first name input
