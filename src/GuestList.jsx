@@ -4,6 +4,7 @@ export default function GuestList() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState([]);
+  const [isAttending, setIsAttending] = useState(false);
 
   // Function to add a guest to the list
   function addGuest() {
@@ -30,7 +31,7 @@ export default function GuestList() {
   return (
     <div data-test-id="guest">
       <h1>Guest List</h1>
-      <form>
+      <form onSubmit={(event) => event.preventDefault()}>
         <label>
           First name
           <input
@@ -67,6 +68,12 @@ export default function GuestList() {
             >
               Remove
             </button>
+            <input
+              type="checkbox"
+              aria-label="attending status"
+              checked={isAttending}
+              onChange={(event) => setIsAttending(event.currentTarget.checked)}
+            />
           </li>
         ))}
       </ul>

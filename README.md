@@ -10,7 +10,7 @@ TODOs:
 - [x] Input fields should be empty after adding a new guest
 - [x] Each guest (all content and HTML elements related to a guest) should be contained inside a div element with the attribute data-test-id="guest"
 
-- [ ] Deleting a guest by pressing a "Remove" button
+- [x] Deleting a guest by pressing a "Remove" button
 
 - [ ] Each guest has a checkbox (empty by default, aria-label which contains the text attending)
 - [ ] Checked box = attending, unchecked = not attending
