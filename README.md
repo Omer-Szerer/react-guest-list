@@ -12,7 +12,7 @@ TODOs:
 
 - [x] Deleting a guest by pressing a "Remove" button
 
-- [ ] Each guest has a checkbox (empty by default, aria-label which contains the text attending)
+- [x] Each guest has a checkbox (empty by default, aria-label which contains the text attending)
 - [ ] Checked box = attending, unchecked = not attending
 
 - [ ] API checkbox (later)

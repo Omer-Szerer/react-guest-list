@@ -1,30 +1,102 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function GuestList() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState([]);
-  const [isAttending, setIsAttending] = useState(false);
 
-  // Function to add a guest to the list
-  function addGuest() {
+  // Fetch guests from the API when the component loads
+  useEffect(() => {
+    async function fetchGuests() {
+      try {
+        const response = await fetch('http://localhost:4000/guests');
+        if (!response.ok) {
+          throw new Error('Failed to fetch guests');
+        }
+        const data = await response.json();
+        setGuests(data);
+      } catch (error) {
+        console.error('Error fetching guests:', error);
+      }
+    }
+
+    fetchGuests().catch((error) => {
+      console.log(error);
+    });
+  }, []);
+
+  // Add a guest to the API
+  async function addGuest() {
     if (firstName && lastName) {
-      const newGuest = {
-        id: guests.length + 1, // ID is based on the current length of the array
-        name: `${firstName} ${lastName}`,
-        attending: false, // Default value for attending status
-      };
+      try {
+        const response = await fetch('http://localhost:4000/guests', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            attending: false, // Default status
+          }),
+        });
 
-      setGuests([...guests, newGuest]); // Add the new guest to the list
-      setFirstName(''); // Clear first name input
-      setLastName(''); // Clear last name input
+        if (!response.ok) {
+          throw new Error('Failed to add guest');
+        }
+
+        const newGuest = await response.json();
+        setGuests([...guests, newGuest]); // Add new guest to state
+        setFirstName(''); // Clear input fields
+        setLastName('');
+      } catch (error) {
+        console.error('Error adding guest:', error);
+      }
     }
   }
 
-  // Function to remove a guest from the list
-  function removeGuest(id) {
-    const updatedGuestList = guests.filter((guest) => guest.id !== id);
-    setGuests(updatedGuestList);
+  // Toggle attendance status
+  async function toggleAttendance(id) {
+    try {
+      const guest = guests.find((g) => g.id === id);
+      const response = await fetch(`http://localhost:4000/guests/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ attending: !guest.attending }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update attendance status');
+      }
+
+      const updatedGuest = await response.json();
+      setGuests(
+        guests.map((g) =>
+          g.id === id ? { ...guest, attending: updatedGuest.attending } : guest,
+        ),
+      );
+    } catch (error) {
+      console.error('Error updating attendance status:', error);
+    }
+  }
+
+  // Remove a guest
+  async function removeGuest(id) {
+    try {
+      const response = await fetch(`http://localhost:4000/guests/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete guest');
+      }
+
+      setGuests(guests.filter((guest) => guest.id !== id));
+    } catch (error) {
+      console.error('Error deleting guest:', error);
+    }
   }
 
   return (
@@ -49,7 +121,7 @@ export default function GuestList() {
             onChange={(event) => setLastName(event.currentTarget.value)}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
-                addGuest(); // Call addGuest function on Enter
+                addGuest();
               }
             }}
           />
@@ -60,7 +132,7 @@ export default function GuestList() {
       <ul>
         {guests.map((guest) => (
           <li key={`guest-${guest.id}`}>
-            {guest.name}
+            {guest.firstName} {guest.lastName}
             <button
               className="remove-button"
               onClick={() => removeGuest(guest.id)}
@@ -70,9 +142,14 @@ export default function GuestList() {
             <input
               type="checkbox"
               aria-label="attending status"
-              checked={isAttending}
-              onChange={(event) => setIsAttending(event.currentTarget.checked)}
+              checked={guest.attending}
+              onChange={() => toggleAttendance(guest.id)}
             />
+            <span>
+              {guest.attending
+                ? `${guest.firstName} ${guest.lastName} is attending`
+                : `${guest.firstName} ${guest.lastName} is not attending`}
+            </span>
           </li>
         ))}
       </ul>
