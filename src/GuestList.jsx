@@ -4,7 +4,7 @@ export default function GuestList() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState([]);
-  const [loading, setLoading] = useState(true); // New loading state
+  const [loading, setLoading] = useState(true);
 
   // Fetch guests from the API when the component loads
   useEffect(() => {
@@ -114,7 +114,7 @@ export default function GuestList() {
             placeholder="John"
             value={firstName}
             onChange={(event) => setFirstName(event.currentTarget.value)}
-            disabled={loading} // Disable input while loading
+            disabled={loading}
           />
         </label>
         <label>
@@ -124,10 +124,13 @@ export default function GuestList() {
             placeholder="Doe"
             value={lastName}
             onChange={(event) => setLastName(event.currentTarget.value)}
-            disabled={loading} // Disable input while loading
+            disabled={loading}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
-                addGuest();
+                event.preventDefault();
+                addGuest().catch((error) => {
+                  console.error('Error adding guest:', error);
+                });
               }
             }}
           />
