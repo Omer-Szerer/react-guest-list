@@ -107,7 +107,7 @@ export default function GuestList() {
   }
 
   return (
-    <div className="main-container" data-test-id="guest">
+    <div className="main-container">
       <h1>Join the list</h1>
       <div className="input-container">
         <form onSubmit={(event) => event.preventDefault()} disabled={loading}>
@@ -158,34 +158,36 @@ export default function GuestList() {
           {console.log('Rendering Loading...')}
         </>
       ) : (
-        <ul>
-          {guests.map((guest) => (
-            <li
-              key={`guest-${guest.id}`}
-              className={`guest-card ${guest.attending ? 'attending' : 'not-attending'}`}
-            >
-              <div className="guest-info">
-                <input
-                  type="checkbox"
-                  aria-label="attending status"
-                  checked={guest.attending}
-                  onChange={() => toggleAttendance(guest.id)}
-                  className="guest-checkbox"
-                />
-                <span className="guest-name">
-                  {guest.firstName} {guest.lastName}
-                </span>
-              </div>
-              <button
-                aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
-                className="remove-button"
-                onClick={() => removeGuest(guest.id)}
+        <div data-test-id="guest">
+          <ul>
+            {guests.map((guest) => (
+              <li
+                key={`guest-${guest.id}`}
+                className={`guest-card ${guest.attending ? 'attending' : 'not-attending'}`}
               >
-                ❌
-              </button>
-            </li>
-          ))}
-        </ul>
+                <div className="guest-info">
+                  <input
+                    type="checkbox"
+                    aria-label="attending status"
+                    checked={guest.attending}
+                    onChange={() => toggleAttendance(guest.id)}
+                    className="guest-checkbox"
+                  />
+                  <span className="guest-name">
+                    {guest.firstName} {guest.lastName}
+                  </span>
+                </div>
+                <button
+                  aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
+                  className="remove-button"
+                  onClick={() => removeGuest(guest.id)}
+                >
+                  ❌
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
