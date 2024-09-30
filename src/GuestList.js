@@ -165,11 +165,7 @@ export default function GuestList() {
                 key={`guest-${guest.id}`}
                 className={`guest-card ${guest.attending ? 'attending' : 'not-attending'}`}
               >
-                <div
-                  data-test-id="guest"
-                  className="guest-info"
-                  key={`guest-${guests.id}`}
-                >
+                <div data-test-id="guest" className="guest-info">
                   <input
                     type="checkbox"
                     aria-label="attending status"
@@ -177,7 +173,7 @@ export default function GuestList() {
                     onChange={() => toggleAttendance(guest.id)}
                     className="guest-checkbox"
                   />
-                  <span className="guest-name">
+                  <span className="guest-name" key={`guest-${guests.id}`}>
                     {guest.firstName} {guest.lastName}
                   </span>
                 </div>
