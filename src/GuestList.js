@@ -94,9 +94,7 @@ export default function GuestList() {
   // Remove a guest
   async function removeGuest(id) {
     try {
-      const response = await fetch(`${baseUrl}${id}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(`${baseUrl}${id}`, { method: 'DELETE' });
 
       if (!response.ok) {
         throw new Error('Failed to delete guest');
