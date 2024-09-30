@@ -76,6 +76,7 @@ ul {
 /* Styles for attending guests */
 .attending {
   background-color: hsl(115, 100%, 35%); /* Light green for attending */
+  color: white;
 }
 
 /* Styles for guests not attending */
@@ -83,10 +84,26 @@ ul {
   background-color: white;
 }
 
-/* Attending checkbox styling */
 .guest-checkbox {
-  margin-right: 10px; /* Space between checkbox and name */
-  accent-color: hsl(115, 100%, 35%);
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  border: 1px solid hsl(0, 0%, 41%);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.guest-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 /* Guest name styling */

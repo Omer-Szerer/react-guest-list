@@ -155,8 +155,8 @@ export default function GuestList() {
       <h2>Guest List</h2>
       {loading ? (
         <>
-          <p style={{ color: 'red' }}>Loading...</p>
-          {console.log('Rendering Loading...')} {/* Log this */}
+          <p>Loading...</p>
+          {console.log('Rendering Loading...')}
         </>
       ) : (
         <ul>
