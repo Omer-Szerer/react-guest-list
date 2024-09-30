@@ -9,6 +9,7 @@ export default function GuestList() {
   // Fetch guests from the API when the component loads
   useEffect(() => {
     async function fetchGuests() {
+      setLoading(true); // Set loading to true before starting the fetch
       try {
         const response = await fetch('http://localhost:4000/guests');
         if (!response.ok) {
@@ -19,7 +20,7 @@ export default function GuestList() {
       } catch (error) {
         console.error('Error fetching guests:', error);
       } finally {
-        setLoading(false); // Set loading to false after fetch is done
+        setLoading(false); // Ensure loading is false after fetch completes
       }
     }
 
@@ -116,7 +117,7 @@ export default function GuestList() {
                 placeholder="Add first name"
                 value={firstName}
                 onChange={(event) => setFirstName(event.currentTarget.value)}
-                disabled={loading}
+                disabled={loading} // Inputs disabled while loading
               />
             </label>
             <div className="name-validation-container">
@@ -131,7 +132,7 @@ export default function GuestList() {
                 placeholder="Add last name"
                 value={lastName}
                 onChange={(event) => setLastName(event.currentTarget.value)}
-                disabled={loading}
+                disabled={loading} // Inputs disabled while loading
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
                     event.preventDefault();
