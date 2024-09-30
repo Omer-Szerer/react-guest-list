@@ -48,7 +48,7 @@ input::placeholder {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 500px;
+  width: 500px;
   padding: 10px 15px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
