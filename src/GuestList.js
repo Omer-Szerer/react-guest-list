@@ -5,6 +5,7 @@ export default function GuestList() {
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState([]);
   const [loading, setLoading] = useState(true); // Start with true for initial load
+  const baseUrl = 'https://3t8c3r-4000.csb.app/guests';
 
   // Fetch guests from the API when the component loads
   useEffect(() => {
@@ -13,7 +14,7 @@ export default function GuestList() {
       console.log('Fetching guests, loading set to true'); // Debugging statement
 
       try {
-        const response = await fetch('https://3t8c3r-4000.csb.app');
+        const response = await fetch(baseUrl);
         if (!response.ok) {
           throw new Error('Failed to fetch guests');
         }
@@ -37,7 +38,7 @@ export default function GuestList() {
   async function addGuest() {
     if (firstName && lastName) {
       try {
-        const response = await fetch('https://3t8c3r-4000.csb.app', {
+        const response = await fetch(baseUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -67,7 +68,7 @@ export default function GuestList() {
   async function toggleAttendance(id) {
     try {
       const guest = guests.find((g) => g.id === id);
-      const response = await fetch(`https://3t8c3r-4000.csb.app/${id}`, {
+      const response = await fetch(`${baseUrl}${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +94,7 @@ export default function GuestList() {
   // Remove a guest
   async function removeGuest(id) {
     try {
-      const response = await fetch(`https://3t8c3r-4000.csb.app/${id}`, {
+      const response = await fetch(`${baseUrl}${id}`, {
         method: 'DELETE',
       });
 
