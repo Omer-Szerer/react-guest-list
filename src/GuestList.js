@@ -151,7 +151,7 @@ export default function GuestList() {
       </div>
       <h2>Guest List</h2>
       {loading ? (
-        <p>Loading guests...</p>
+        <p>Loading...</p>
       ) : (
         <ul>
           {guests.map((guest) => (
