@@ -124,3 +124,8 @@ h2 {
   margin-bottom: 1.5rem;
   text-align: center;
 }
+
+p {
+  font-size: 2rem;
+  color: black;
+}

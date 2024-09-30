@@ -4,12 +4,14 @@ export default function GuestList() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Start with true for initial load
 
   // Fetch guests from the API when the component loads
   useEffect(() => {
     async function fetchGuests() {
       setLoading(true); // Set loading to true before starting the fetch
+      console.log('Fetching guests, loading set to true'); // Debugging statement
+
       try {
         const response = await fetch('http://localhost:4000/guests');
         if (!response.ok) {
@@ -21,6 +23,7 @@ export default function GuestList() {
         console.error('Error fetching guests:', error);
       } finally {
         setLoading(false); // Ensure loading is false after fetch completes
+        console.log('Fetch completed, loading set to false'); // Debugging statement
       }
     }
 
@@ -151,7 +154,10 @@ export default function GuestList() {
       </div>
       <h2>Guest List</h2>
       {loading ? (
-        <p>Loading...</p>
+        <>
+          <p style={{ color: 'red' }}>Loading...</p>
+          {console.log('Rendering Loading...')} {/* Log this */}
+        </>
       ) : (
         <ul>
           {guests.map((guest) => (
