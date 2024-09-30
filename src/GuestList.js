@@ -4,7 +4,7 @@ export default function GuestList() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // Fetch guests from the API when the component loads
   useEffect(() => {
@@ -107,7 +107,7 @@ export default function GuestList() {
     <div className="main-container" data-test-id="guest">
       <h1>Join the list</h1>
       <div className="input-container">
-        <form onSubmit={(event) => event.preventDefault()}>
+        <form onSubmit={(event) => event.preventDefault()} disabled={loading}>
           <div className="input-group">
             <label>
               {/* First name */}
