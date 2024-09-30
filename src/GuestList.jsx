@@ -104,64 +104,79 @@ export default function GuestList() {
   }
 
   return (
-    <div data-test-id="guest">
-      <h1>Guest List</h1>
-      <form onSubmit={(event) => event.preventDefault()}>
-        <label>
-          First name
-          <input
-            className="first-name"
-            placeholder="John"
-            value={firstName}
-            onChange={(event) => setFirstName(event.currentTarget.value)}
-            disabled={loading}
-          />
-        </label>
-        <label>
-          Last name
-          <input
-            className="last-name"
-            placeholder="Doe"
-            value={lastName}
-            onChange={(event) => setLastName(event.currentTarget.value)}
-            disabled={loading}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                event.preventDefault();
-                addGuest().catch((error) => {
-                  console.error('Error adding guest:', error);
-                });
-              }
-            }}
-          />
-        </label>
-      </form>
-
-      {/* Display loading message while fetching data */}
+    <div className="main-container" data-test-id="guest">
+      <h1>Join the list</h1>
+      <div className="input-container">
+        <form onSubmit={(event) => event.preventDefault()}>
+          <div className="input-group">
+            <label>
+              {/* First name */}
+              <input
+                className="first-name"
+                placeholder="Add first name"
+                value={firstName}
+                onChange={(event) => setFirstName(event.currentTarget.value)}
+                disabled={loading}
+              />
+            </label>
+            <div className="name-validation-container">
+              <span className="name-validation">{firstName ? '✅' : '✔️'}</span>
+            </div>
+          </div>
+          <div className="input-group">
+            <label>
+              {/* Last name */}
+              <input
+                className="last-name"
+                placeholder="Add last name"
+                value={lastName}
+                onChange={(event) => setLastName(event.currentTarget.value)}
+                disabled={loading}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault();
+                    addGuest().catch((error) => {
+                      console.error('Error adding guest:', error);
+                    });
+                  }
+                }}
+              />
+            </label>
+            <div className="name-validation-container">
+              <span className="name-validation">{lastName ? '✅' : '✔️'}</span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <h2>Guest List</h2>
       {loading ? (
         <p>Loading guests...</p>
       ) : (
         <ul>
           {guests.map((guest) => (
-            <li key={`guest-${guest.id}`}>
-              {guest.firstName} {guest.lastName}
+            <li
+              key={`guest-${guest.id}`}
+              className={`guest-card ${guest.attending ? 'attending' : 'not-attending'}`}
+            >
+              <div className="guest-info">
+                <input
+                  type="checkbox"
+                  aria-label="attending status"
+                  checked={guest.attending}
+                  onChange={() => toggleAttendance(guest.id)}
+                  className="guest-checkbox"
+                />
+                <span className="guest-name">
+                  {guest.firstName} {guest.lastName}
+                </span>
+              </div>
               <button
                 className="remove-button"
+                aria-label="Remove"
                 onClick={() => removeGuest(guest.id)}
               >
-                Remove
+                ❌
               </button>
-              <input
-                type="checkbox"
-                aria-label="attending status"
-                checked={guest.attending}
-                onChange={() => toggleAttendance(guest.id)}
-              />
-              <span>
-                {guest.attending
-                  ? `${guest.firstName} ${guest.lastName} is attending`
-                  : `${guest.firstName} ${guest.lastName} is not attending`}
-              </span>
             </li>
           ))}
         </ul>
