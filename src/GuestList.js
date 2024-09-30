@@ -158,14 +158,18 @@ export default function GuestList() {
           {console.log('Rendering Loading...')}
         </>
       ) : (
-        <div key={`guest-${guests.id}`}>
+        <div>
           <ul>
             {guests.map((guest) => (
               <li
                 key={`guest-${guest.id}`}
                 className={`guest-card ${guest.attending ? 'attending' : 'not-attending'}`}
               >
-                <div data-test-id="guest" className="guest-info">
+                <div
+                  data-test-id="guest"
+                  className="guest-info"
+                  key={`guest-${guests.id}`}
+                >
                   <input
                     type="checkbox"
                     aria-label="attending status"
