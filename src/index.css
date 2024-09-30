@@ -75,7 +75,7 @@ ul {
 
 /* Styles for attending guests */
 .attending {
-  background-color: hsl(115, 100%, 35%); /* Light green for attending */
+  background-color: #1c76ff;
   color: white;
 }
 
@@ -124,7 +124,6 @@ ul {
   background-color: hsl(0, 2%, 91%);
 }
 
-/* Input fields */
 input {
   border: none;
   outline: none;

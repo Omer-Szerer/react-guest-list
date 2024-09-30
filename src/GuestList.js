@@ -113,7 +113,7 @@ export default function GuestList() {
         <form onSubmit={(event) => event.preventDefault()} disabled={loading}>
           <div className="input-group">
             <label>
-              First name
+              <span>First name</span>
               <input
                 className="first-name"
                 placeholder="Add first name"
@@ -128,7 +128,7 @@ export default function GuestList() {
           </div>
           <div className="input-group">
             <label>
-              Last name
+              <span>Last name</span>
               <input
                 className="last-name"
                 placeholder="Add last name"
