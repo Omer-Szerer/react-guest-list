@@ -165,7 +165,11 @@ export default function GuestList() {
                 key={`guest-${guest.id}`}
                 className={`guest-card ${guest.attending ? 'attending' : 'not-attending'}`}
               >
-                <div data-test-id="guest" className="guest-info">
+                <div
+                  data-test-id="guest"
+                  className="guest-info"
+                  key={`guest-${guests.id}`}
+                >
                   <input
                     type="checkbox"
                     aria-label="attending status"
