@@ -177,8 +177,8 @@ export default function GuestList() {
                 </span>
               </div>
               <button
-                className="remove-button"
                 aria-label="Remove"
+                className="remove-button"
                 onClick={() => removeGuest(guest.id)}
               >
                 ❌
