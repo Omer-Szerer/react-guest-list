@@ -158,7 +158,7 @@ export default function GuestList() {
           {console.log('Rendering Loading...')}
         </>
       ) : (
-        <div key={`user-${guests.id}`} data-test-id="guest">
+        <div data-test-id="guest">
           <ul>
             {guests.map((guest) => (
               <li
