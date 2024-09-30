@@ -173,7 +173,7 @@ export default function GuestList() {
                     onChange={() => toggleAttendance(guest.id)}
                     className="guest-checkbox"
                   />
-                  <span className="guest-name" key={`guest-${guests.id}`}>
+                  <span className="guest-name">
                     {guest.firstName} {guest.lastName}
                   </span>
                 </div>
