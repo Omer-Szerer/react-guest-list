@@ -68,7 +68,7 @@ export default function GuestList() {
   async function toggleAttendance(id) {
     try {
       const guest = guests.find((g) => g.id === id);
-      const response = await fetch(`${baseUrl}${id}`, {
+      const response = await fetch(`${baseUrl}/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ export default function GuestList() {
   // Remove a guest
   async function removeGuest(id) {
     try {
-      const response = await fetch(`${baseUrl}${id}`, { method: 'DELETE' });
+      const response = await fetch(`${baseUrl}/${id}`, { method: 'DELETE' });
 
       if (!response.ok) {
         throw new Error('Failed to delete guest');
