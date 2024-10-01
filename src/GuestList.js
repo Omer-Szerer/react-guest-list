@@ -182,7 +182,8 @@ export default function GuestList() {
                   className="remove-button"
                   onClick={() => removeGuest(guest.id)}
                 >
-                  ❌
+                  {/* ❌ */}
+                  Remove
                 </button>
               </li>
             ))}
